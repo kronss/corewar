@@ -1,0 +1,7 @@
+*.o
+.DS_Store
+*.exe
+*.out
+.nfs.*
+lem-in.dSYM
+._*
