@@ -16,7 +16,9 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-NAME = corewar
+NAME1 = asm
+NAME2 = corewar
+
 
 SRC_PATH = src
 INC_PATH = .
