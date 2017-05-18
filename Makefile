@@ -10,39 +10,69 @@
 #                                                                              #
 #******************************************************************************#
 
-.PHONY: all clean fclean re
-
+#********************************* common *************************************#
+.PHONY: all clean fclean re asm_test asm corewar
 CC = gcc
-
-FLAGS = -Wall -Wextra -Werror
-
-NAME1 = asm
-NAME2 = corewar
+# FLAGS = -Wall -Wextra -Werror
 
 
-SRC_PATH = src
-INC_PATH = .
-OBJ_PATH = .
 LIB_PATH = libft
 PTF_PATH = ft_printf
 
-SRC_NAME =	main.c \
-			
-
-INC_NAME = 
-
-OBJ_NAME = $(SRC_NAME:.c=.o)
-
-SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
-INC = $(addprefix $(INC_PATH)/, $(INC_NAME))
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 LIB = 	libft.a
 PTF =	libftprintf.a
+#******************************************************************************#
 
-all: $(LIB) $(PTF) $(NAME)
+
+
+
+
+#********************************* asm ****************************************#
+NAME_ASM = asm_test
+
+
+SRC_PATH_ASM = asm_path/src
+INC_PATH_ASM = asm_path/inc
+OBJ_PATH_ASM = asm_path/obj
+
+
+
+SRC_NAME_ASM = main_asm.c
+INC_NAME_ASM = main_asm.h
+OBJ_NAME_ASM = $(SRC_NAME_ASM:.c=.o)
+
+
+
+
+SRC_ASM = $(addprefix $(SRC_PATH_ASM)/, $(SRC_NAME_ASM))
+INC_ASM = $(addprefix $(INC_PATH_ASM)/, $(INC_NAME_ASM))
+OBJ_ASM = $(addprefix $(OBJ_PATH_ASM)/, $(OBJ_NAME_ASM))
+#******************************************************************************#
+
+
+
+
+#********************************* corewar *************************************#
+NAME_COR = corewar_test
+SRC_PATH_COR = cor_path/src
+INC_PATH_COR = cor_path/inc
+OBJ_PATH_COR = cor_path/obj
+SRC_NAME_COR = main_cor.c
+INC_NAME_COR = main_cor.h
+OBJ_NAME_COR = $(SRC_NAME_COR:.c=.o)
+SRC_COR = $(addprefix $(SRC_PATH_COR)/, $(SRC_NAME_COR))
+INC_COR = $(addprefix $(INC_PATH_COR)/, $(INC_NAME_COR))
+OBJ_COR = $(addprefix $(OBJ_PATH_COR)/, $(OBJ_NAME_COR))
+#******************************************************************************#
+
+
+all: $(LIB) $(PTF) create $(NAME_ASM)
 	
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(LIB_PATH)/$(LIB) $(PTF_PATH)/$(PTF)
+create:
+	@mkdir -p $(OBJ_PATH_ASM)
+
+$(NAME_ASM): $(OBJ_ASM)
+	$(CC) -o $(NAME_ASM) $(FLAGS) $(OBJ_ASM) $(LIB_PATH)/$(LIB) $(PTF_PATH)/$(PTF)
 
 $(LIB):
 	@make -C $(LIB_PATH)/
@@ -50,12 +80,14 @@ $(LIB):
 $(PTF):
 	@make -C $(PTF_PATH)/
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INC)
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
+
+
+$(OBJ_ASM): $(SRC_ASM)
 	$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_ASM)
+
 	make -C $(LIB_PATH)/ clean
 	make -C $(PTF_PATH)/ clean
 
@@ -66,11 +98,15 @@ fclean: clean
 
 re: fclean all
 
-r: all
-	./$(NAME) < test7
 
-bug:
-	$(CC) -g $(FLAGS) -o $(NAME) $(SRC) $(LIB_PATH)/$(LIB) $(PTF_PATH)/$(PTF)
 
-debug: bug
-	lldb -- $(NAME) -f test02
+
+
+
+
+
+
+
+
+
+
