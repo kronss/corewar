@@ -12,12 +12,6 @@
 
 #include "../inc/main_asm.h"
 
-void		parsing_file(int fd)
-{
-
-
-}
-
 void		error_asm(void *t_data, int error_code, char *str)
 {
 	error_code == -1 ? ft_printf("Can't read source file %s\n", str) : 0;
