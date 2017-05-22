@@ -37,16 +37,22 @@ OBJ_PATH_ASM = asm_path/obj
 
 
 
-SRC_NAME_ASM = main_asm.c
+SRC_NAME_ASM = main_asm.c parsing_file.c
 INC_NAME_ASM = main_asm.h
-OBJ_NAME_ASM = $(SRC_NAME_ASM:.c=.o)
+# OBJ_NAME_ASM = $(SRC_NAME_ASM:.c=.o)
 
 
 
 
 SRC_ASM = $(addprefix $(SRC_PATH_ASM)/, $(SRC_NAME_ASM))
 INC_ASM = $(addprefix $(INC_PATH_ASM)/, $(INC_NAME_ASM))
-OBJ_ASM = $(addprefix $(OBJ_PATH_ASM)/, $(OBJ_NAME_ASM))
+
+
+
+OBJ_ASM = $(SRC_ASM:asm/src/%.c=asm/obj/%.o)
+
+
+# $(addprefix $(OBJ_PATH_ASM)/, $(OBJ_NAME_ASM))
 #******************************************************************************#
 
 
@@ -80,21 +86,19 @@ $(LIB):
 $(PTF):
 	@make -C $(PTF_PATH)/
 
-
-
-$(OBJ_ASM): $(SRC_ASM)
+$(OBJ_PATH_ASM)/%.o: $(SRC_PATH_ASM)/%.c
 	$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
 	rm -rf $(OBJ_ASM)
-
-	make -C $(LIB_PATH)/ clean
-	make -C $(PTF_PATH)/ clean
+	rm -rf $(OBJ_PATH_ASM)
+	# make -C $(LIB_PATH)/ clean
+	# make -C $(PTF_PATH)/ clean
 
 fclean: clean
 	rm -rf $(NAME)
-	rm -rf $(LIB_PATH)/$(LIB)
-	rm -rf $(PTF_PATH)/$(PTF)
+	# rm -rf $(LIB_PATH)/$(LIB)
+	# rm -rf $(PTF_PATH)/$(PTF)
 
 re: fclean all
 

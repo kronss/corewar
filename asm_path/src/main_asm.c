@@ -12,8 +12,10 @@
 
 #include "../inc/main_asm.h"
 
-void		error_asm(void *t_data, int error_code, char *str)
+void		error_asm(void *data, int error_code, char *str)
 {
+	if (data)
+		;
 	error_code == -1 ? ft_printf("Can't read source file %s\n", str) : 0;
 	error_code == -2 ? ft_printf("Can't close source file\n") : 0;
 

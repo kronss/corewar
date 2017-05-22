@@ -6,3 +6,5 @@
 .nfs.*
 lem-in.dSYM
 ._*
+*.cor
+asm_test
