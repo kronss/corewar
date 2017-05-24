@@ -12,6 +12,10 @@
 
 NAME = libft.a
 
+INC = inc/libft.h
+
+CFLAGS = -Wall -Wextra -Werror
+
 OBJECT = ./ft_memset.o \
 	./ft_bzero.o \
 	./ft_memcpy.o \
@@ -89,12 +93,12 @@ OBJECT = ./ft_memset.o \
 
 all: $(NAME)
 	
-$(NAME): $(OBJECT)
-	ar rc $(NAME) $(OBJECT)
+$(NAME): $(OBJECT) $(INC)
+	ar rc $(NAME) $(OBJECT) $(INC)
 	ranlib $(NAME)
 
-%.o: ./%.c
-	gcc -Wall -Wextra -Werror -o $@ -c $< -I ./
+%.o: src/%.c
+	gcc -c $(CFLAGS) $? -o $@  
 
 clean:
 	rm -f $(OBJECT)
@@ -103,4 +107,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
