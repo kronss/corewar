@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_file.c                                     :+:      :+:    :+:   */
+/*   asm_additionally.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ochayche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/19 20:53:21 by ochayche          #+#    #+#             */
-/*   Updated: 2017/05/19 20:53:22 by ochayche         ###   ########.fr       */
+/*   Created: 2017/05/26 16:02:32 by atrush            #+#    #+#             */
+/*   Updated: 2017/05/26 16:02:34 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/main_asm.h"
+#include "../../inc/corewar.h"
 
-void		parsing_file(int fd)
+int ft_isspace(int c)
 {
-
+	if (c == (int)' ' || c == (int)'\f' || c == (int)'\n' || c == (int)'\r' ||
+		c == (int)'\t' || c == (int)'\v')
+		return (1);
+	return (0);
 }
