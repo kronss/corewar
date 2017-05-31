@@ -23,6 +23,9 @@
  a .cor file, outputs a stripped and annotated\
  version of the code to the standard output\n"
 
+
+
+
 t_header	make_header(int fd);
 int			ft_isspace(int c);
 
