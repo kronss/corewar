@@ -47,7 +47,7 @@ SRC_NAME_ASM =			asm_additionally.c \
 #	RULES
 ################################################################################
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re test
 
 all: $(LIB) $(PTF) $(NAME_ASM)
 
@@ -84,3 +84,9 @@ re: fclean recg all
 
 recg:
 	@printf "\033[33mRecompiling...\n\033[0m"
+
+test:
+	./test/asm test/zork.s
+
+test1:
+	./test/corewar test/zork.cor test/zork.cor -n
