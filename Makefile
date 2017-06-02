@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -I./inc/ -Wall -Wextra -Werror
 SHELL = /bin/sh
 
 
@@ -61,17 +61,15 @@ $(NAME_ASM): $(OBJ_ASM) $(INC_ASM)
 	@printf "\033[33m\nARTEM!!!!!! GO V HOTS\ncompiling done.\n\033[0m"
 
 $(LIB):
-	# @make -C $(LIB_DIR)/ 1> /dev/null 2> /dev/null
 
 $(PTF):
-	# @make -C $(PTF_DIR)/ 1> /dev/null 2> /dev/null
 
 $(OBJ_DIR_ASM)/%.o: $(SRC_DIR_ASM)/%.c | $(OBJ_DIR_ASM)
 	@printf "\033[42m  \033[0m"
 	@$(CC) -c $(CFLAGS) $? -o $@
 
 $(OBJ_DIR_ASM):
-	@mkdir $(OBJ_DIR_ASM)
+	@mkdir -p $(OBJ_DIR_ASM)
 
 clean:
 	@rm -rf $(OBJ_DIR_ASM)

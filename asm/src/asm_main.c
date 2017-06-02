@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "corewar.h"
 
 static int	open_file(char *filename)
 {
@@ -40,6 +40,6 @@ int			main(int argc, char **argv)
 		close(fd);	
 	}
 	else
-		ft_printf("Usage: %s%s", argv[0], USAGE);
+		printf("Usage: %s%s", argv[0], USAGE);
 	return (0);
 }

@@ -19,6 +19,8 @@
 # include <errno.h>
 # include <fcntl.h>
 
+#include <stdio.h>
+
 # define live	1
 # define ld		2
 # define st		3

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "corewar.h"
 
 void			body_delete(t_body **root)
 {

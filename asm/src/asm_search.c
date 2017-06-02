@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "corewar.h"
 
 int				search_label(char *line, char **label, size_t *i)
 {
@@ -63,7 +63,7 @@ static int		cmdcmp(char *line)
 		return (1);
 	if (!ft_strncmp(line, "st", 4))
 		return (1);
-	return (cmdcmp_other(line));
+	return (0);
 }
 
 int				search_cmd(char *line, short int *cmd, size_t *i)
@@ -72,7 +72,7 @@ int				search_cmd(char *line, short int *cmd, size_t *i)
 
 	while (line[*i] && ft_isspace(line[*i]) != 0)
 		*i += 1;
-
+	(void)cmd;
 	return (1);
 }
 
