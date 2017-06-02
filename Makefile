@@ -38,8 +38,13 @@ OBJ_ASM = $(subst .c,.o,$(subst $(SRC_DIR_ASM)/,$(OBJ_DIR_ASM)/,$(SRC_ASM)))
 SRC_DIR_ASM =	asm/src
 SRC_ASM = $(addprefix $(SRC_DIR_ASM)/, $(SRC_NAME_ASM))
 SRC_NAME_ASM =			asm_additionally.c \
+						asm_body.c \
+						asm_body_list.c \
+						asm_error.c \
 						asm_header.c \
-						asm_main.c
+						asm_main.c \
+						asm_search.c
+
 # add .c file ---->
 
 
