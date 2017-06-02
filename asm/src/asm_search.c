@@ -55,12 +55,15 @@ static int		cmdcmp(char *line)
 		return (1);
 	if (!ft_strncmp(line, "zjmp", 4))
 		return (1);
-	if (!ft_strncmp(line, "live", 4))
+	if (!ft_strncmp(line, "ldi", 4))
 		return (1);
-	if (!ft_strncmp(line, "live", 4))
+	if (!ft_strncmp(line, "sti", 4))
 		return (1);
-	if (!ft_strncmp(line, "live", 4))
+	if (!ft_strncmp(line, "ld", 4))
 		return (1);
+	if (!ft_strncmp(line, "st", 4))
+		return (1);
+	return (cmdcmp_other(line));
 }
 
 int				search_cmd(char *line, short int *cmd, size_t *i)
