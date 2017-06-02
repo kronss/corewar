@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../../inc/corewar.h"
 
 static int	open_file(char *filename)
 {

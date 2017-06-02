@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../../inc/corewar.h"
 
 int				search_label(char *line, char **label, size_t *i)
 {

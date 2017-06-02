@@ -1,5 +1,4 @@
 *.o
-*.a
 .DS_Store
 *.exe
 *.out

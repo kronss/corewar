@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../../inc/corewar.h"
 
 static void			empty_line(char **line, unsigned int line_num,
 					int n, size_t i)
