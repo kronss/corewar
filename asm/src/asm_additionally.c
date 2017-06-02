@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/corewar.h"
+#include "corewar.h"
 
 int ft_isspace(int c)
 {
 	if (c == (int)' ' || c == (int)'\f' || c == (int)'\n' || c == (int)'\r' ||
-		c == (int)'\t' || c == (int)'\v')
+		c == (int)'\t' || c == (int)'\v' || c == (int)'\0')
 		return (1);
 	return (0);
 }
