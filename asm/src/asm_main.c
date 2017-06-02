@@ -31,15 +31,18 @@ int			main(int argc, char **argv)
 	int			fd;
 	t_body		*body;
 	t_header	head;
+	t_asml		asml[16];
 
+	(void)body;
 	if (argc > 1)
 	{
 		fd = open_file(argv[argc - 1]);
+		asml_default(asml);
 		head = make_header(fd);
 		body = make_body(fd, head.prog_size);
 		close(fd);	
 	}
 	else
-		printf("Usage: %s%s", argv[0], USAGE);
+		ft_printf("Usage: %s%s", argv[0], USAGE);
 	return (0);
 }

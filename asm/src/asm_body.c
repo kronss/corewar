@@ -58,7 +58,7 @@ static int	search_data(char **line, t_body **root)
 		else if (res == 0)
 			return (i);
 	}
-	return ((empty(*line + i) == -1) ? -1 : empty(*line + i) + i);
+	return ((empty(*line + i) == -1) ? -1 : empty(*line + i) + (int)i);
 }
 
 t_body		*make_body(int fd, unsigned int line_num)

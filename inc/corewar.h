@@ -19,7 +19,9 @@
 # include <errno.h>
 # include <fcntl.h>
 
+//Eto nado ubrat!!!
 #include <stdio.h>
+#define ft_printf	printf
 
 # define live	1
 # define ld		2
@@ -41,6 +43,22 @@
 # define USAGE " [-a] <sourcefile.s>\n    -a : Instead of creating\
  a .cor file, outputs a stripped and annotated\
  version of the code to the standard output\n"
+
+// 1 - REG
+// 2 - DIR
+// 3 - IND
+//     RDI 000 R00
+
+typedef struct		s_asml
+{
+	char	name[6];
+	char	args[10];
+	short	n_args;
+	int		cycles;
+	short	label_size;
+	short	carry;
+	short	cod_oct;
+}					t_asml;
 
 typedef struct		s_body
 {

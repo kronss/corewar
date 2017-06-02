@@ -73,6 +73,9 @@ int				search_cmd(char *line, short int *cmd, size_t *i)
 	while (line[*i] && ft_isspace(line[*i]) != 0)
 		*i += 1;
 	(void)cmd;
+	(void)j;
+	cmdcmp(line);
+	
 	return (1);
 }
 

@@ -58,30 +58,32 @@ all: $(LIB) $(PTF) $(NAME_ASM)
 
 $(NAME_ASM): $(OBJ_ASM) $(INC_ASM)
 	@$(CC) $(CFLAGS) $(OBJ_ASM) -L./$(PTF_DIR) -lftprintf -L./$(LIB_DIR) -lft -o $(NAME_ASM)
-	@printf "\033[33m\nARTEM!!!!!! GO V HOTS\ncompiling done.\n\033[0m"
+	@printf "\033[33m\nYOU TOUCH MY ULA LA! MY DIN DIN DON\ncompiling done.\n\033[0m"
 
 $(LIB):
+	
 
 $(PTF):
+	
 
 $(OBJ_DIR_ASM)/%.o: $(SRC_DIR_ASM)/%.c | $(OBJ_DIR_ASM)
 	@printf "\033[42m  \033[0m"
 	@$(CC) -c $(CFLAGS) $? -o $@
 
 $(OBJ_DIR_ASM):
-	@mkdir -p $(OBJ_DIR_ASM)
+	@mkdir $(OBJ_DIR_ASM)
 
 clean:
 	@rm -rf $(OBJ_DIR_ASM)
 	@echo "\033[31mСleaning completed\033[0m"
-	# @make -C $(LIB_DIR)/ clean fclean 1> /dev/null
-	# @make -C $(PTF_DIR)/ clean fclean 1> /dev/null
+	#@make -C $(LIB_DIR)/ clean fclean 1> /dev/null
+	#@make -C $(PTF_DIR)/ clean fclean 1> /dev/null
 
 fclean: clean
 	@rm -f $(NAME_ASM)
 	@echo "\033[31mPrograms removed\033[0m"
-	# @rm -f $(LIB_DIR)/$(LIB) fclean 1> /dev/null
-	# @rm -f $(PTF_DIR)/$(PTF) fclean 1> /dev/null
+	#@rm -f $(LIB_DIR)/$(LIB) fclean 1> /dev/null
+	#@rm -f $(PTF_DIR)/$(PTF) fclean 1> /dev/null
 
 re: fclean recg all
 
