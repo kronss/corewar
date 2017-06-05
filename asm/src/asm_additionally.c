@@ -12,7 +12,41 @@
 
 #include "corewar.h"
 
-int ft_isspace(int c)
+int		count_sym(const char *line, char c)
+{
+	size_t	i;
+	int		count;
+	
+	i = 0;
+	count = 0;
+	while (line && line[i])
+	{
+		if (line[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int		free_char_mas(char ***mas)
+{
+	size_t	i;
+	
+	i = 0;
+	if (!mas || !(*mas))
+		return (0);
+	while ((*mas)[i])
+	{
+		free((*mas)[i]);
+		(*mas)[i] = NULL;
+		i++;
+	}
+	free(*mas);
+	*mas = NULL;
+	return (0);
+}
+
+int		ft_isspace(int c)
 {
 	if (c == (int)' ' || c == (int)'\f' || c == (int)'\n' || c == (int)'\r' ||
 		c == (int)'\t' || c == (int)'\v' || c == (int)'\0')

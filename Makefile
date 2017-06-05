@@ -23,7 +23,7 @@ PTF =	libftprintf.a
 ################################################################################
 #	ASM
 ################################################################################
-NAME_ASM = ASM
+NAME_ASM = cod
 
 #********* -INC
 INC_NAME_ASM =	corewar.h
@@ -43,7 +43,8 @@ SRC_NAME_ASM =			asm_additionally.c \
 						asm_error.c \
 						asm_header.c \
 						asm_main.c \
-						asm_search.c
+						asm_search.c \
+						both_asml.c
 
 # add .c file ---->
 

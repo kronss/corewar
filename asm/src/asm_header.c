@@ -117,7 +117,7 @@ t_header			make_header(int fd)
 {
 	t_header	head;
 	char		*line;
-	short int	h_f;
+	short		h_f;
 
 	line = NULL;
 	head.magic = COREWAR_EXEC_MAGIC;

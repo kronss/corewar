@@ -36,7 +36,7 @@ static void		default_values(t_body **node)
 {
 	(*node)->next = NULL;
 	(*node)->size = 0;
-	(*node)->cmd = 0;
+	(*node)->cmd = -1;
 	(*node)->type = 0;
 	(*node)->label = NULL;
 	(*node)->link_1 = NULL;

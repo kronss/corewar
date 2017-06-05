@@ -39,8 +39,15 @@ int			main(int argc, char **argv)
 		fd = open_file(argv[argc - 1]);
 		asml_default(asml);
 		head = make_header(fd);
-		body = make_body(fd, head.prog_size);
-		close(fd);	
+		body = make_body(fd, head.prog_size, asml);
+		close(fd);
+		
+		t_body *tmp; tmp = body;
+		while (tmp) {
+			ft_printf("label = %s, name = %s\n", tmp->label, asml[tmp->cmd].name);
+			tmp = tmp->next;}
+		
+		body_delete(&body);
 	}
 	else
 		ft_printf("Usage: %s%s", argv[0], USAGE);

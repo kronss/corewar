@@ -52,8 +52,8 @@
 typedef struct		s_asml
 {
 	char	name[6];
-	char	args[10];
-	short	n_args;
+	short	arg_type;
+	short	arg_num;
 	int		cycles;
 	short	label_size;
 	short	carry;
@@ -63,8 +63,8 @@ typedef struct		s_asml
 typedef struct		s_body
 {
 	size_t			size;
-	short int		cmd;
-	short int		type;
+	short			cmd;
+	short			type;
 	char			*label;
 	char			*link_1;
 	char			*link_2;
@@ -75,21 +75,26 @@ typedef struct		s_body
 	struct s_body	*next;
 }					t_body;
 
-int		search_label(char *line, char **label, size_t *i);
-int		search_cmd(char *line, short int *cmd, size_t *i);
-int		search_args(char *line, t_body **node, size_t *i);
-
-void				empty_code(void);
-int					body_create(t_body **root);
-void				body_delete(t_body **root);
-
+int					search_label(char *line, char **label, size_t *i);
+int					search_cmd(char *line, short *cmd, size_t *i, t_asml asml[16]);
+int					search_args(char *line, t_body **node, size_t *i, t_asml asml[16]);
 
 void				read_error(char **line, t_body **root);
+int					inv_arg(char *name, short arg_num, char ***mas);
+void				empty_code(void);
 void				syntax_error(unsigned int line_num, unsigned int column, char **line);
 void				syntax_body_error(unsigned int line_num, unsigned int column,
 					char **line, t_body **root);
+					
+void				asml_default(t_asml asml[16]);
 t_header			make_header(int fd);
-t_body				*make_body(int fd, unsigned int line_num);
+t_body				*make_body(int fd, unsigned int line_num, t_asml asml[16]);
+int					body_create(t_body **root);
+void				body_delete(t_body **root);
+
+int					empty(char *line);
 int					ft_isspace(int c);
+int					free_char_mas(char ***mas);
+int					count_sym(const char *line, char c);
 
 #endif

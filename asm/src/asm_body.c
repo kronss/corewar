@@ -33,7 +33,7 @@ int			empty(char *line)
 	return (-1);
 }
 
-static int	search_data(char **line, t_body **root)
+static int	search_data(char **line, t_body **root, t_asml asml[16])
 {
 	t_body		*tmp;
 	size_t		i;
@@ -49,19 +49,20 @@ static int	search_data(char **line, t_body **root)
 		return (i);
 	if (empty(*line + i) == -1)
 		return (-1);
-	if (search_cmd(*line, &(tmp->cmd), &i) == 0)
+	if (search_cmd(*line, &(tmp->cmd), &i, asml) == 0)
 		return (i);
-	if (tmp->cmd != 0)
+	if (tmp->cmd != -1)
 	{
-		if ((res = search_args(*line, &tmp, &i)) == -1)
+		if ((res = search_args(*line, &tmp, &i, asml)) == -1)
 			read_error(line, root);
 		else if (res == 0)
 			return (i);
 	}
-	return ((empty(*line + i) == -1) ? -1 : empty(*line + i) + (int)i);
+	return (-1);
+	//return ((empty(*line + i) == -1) ? -1 : empty(*line + i) + (int)i);
 }
 
-t_body		*make_body(int fd, unsigned int line_num)
+t_body		*make_body(int fd, unsigned int line_num, t_asml asml[16])
 {
 	t_body		*root;
 	char		*line;
@@ -78,7 +79,7 @@ t_body		*make_body(int fd, unsigned int line_num)
 		{
 			if (!body_create(&root))
 				read_error(&line, &root);	
-			if ((result = search_data(&line, &root)) >= 0)
+			if ((result = search_data(&line, &root, asml)) >= 0)
 				syntax_body_error(line_num, result, &line, &root);
 		}
 		line_num++;
