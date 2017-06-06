@@ -54,13 +54,13 @@ SRC_NAME_ASM =			asm_additionally.c \
 #	RULES
 ################################################################################
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re t
 
 all: $(LIB) $(PTF) $(NAME_ASM)
 
 $(NAME_ASM): $(OBJ_ASM) $(INC_ASM)
 	@$(CC) $(CFLAGS) $(OBJ_ASM) -L./$(PTF_DIR) -lftprintf -L./$(LIB_DIR) -lft -o $(NAME_ASM)
-	@printf "\033[33m\nYOU TOUCH MY ULA LA! MY DIN DIN DON\ncompiling done.\n\033[0m"
+	@printf "\033[33m\nYOU TOUCH MY ULA LA! MY DIN DIN DON!!!\ncompiling done.\n\033[0m"
 
 $(LIB):
 	
@@ -92,8 +92,8 @@ re: fclean recg all
 recg:
 	@printf "\033[33mRecompiling...\n\033[0m"
 
-test:
+t:
 	./test/asm test/zork.s
 
-test1:
-	./test/corewar test/zork.cor test/zork.cor -n
+tt: t
+	xxd test/zork.cor
