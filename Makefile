@@ -44,6 +44,7 @@ SRC_NAME_ASM =			asm_additionally.c \
 						asm_header.c \
 						asm_main.c \
 						asm_search.c \
+						asm_args.c \
 						both_asml.c
 
 # add .c file ---->

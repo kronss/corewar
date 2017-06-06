@@ -79,6 +79,11 @@ int					search_label(char *line, char **label, size_t *i);
 int					search_cmd(char *line, short *cmd, size_t *i, t_asml asml[16]);
 int					search_args(char *line, t_body **node, size_t *i, t_asml asml[16]);
 
+int     accept_registry(char *line, char **link, long long *arg, size_t *i);
+int     accept_indirect(char *line, char **link, long long *arg, size_t *i);
+int     accept_direct(char *line, char **link, long long *arg, size_t *i);
+int		end_of_arg(char *line, size_t i, int j, short arg_num);
+
 void				read_error(char **line, t_body **root);
 int					inv_arg(char *name, short arg_num, char ***mas);
 void				empty_code(void);
@@ -94,6 +99,7 @@ void				body_delete(t_body **root);
 
 int					empty(char *line);
 int					ft_isspace(int c);
+int					incorrect_arg(size_t value);
 int					free_char_mas(char ***mas);
 int					count_sym(const char *line, char c);
 

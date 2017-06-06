@@ -61,37 +61,56 @@ int				search_cmd(char *line, short *cmd, size_t *i, t_asml asml[16])
 	return (1);
 }
 
-static int		incorrect_arg(size_t value)
-{
-	ft_putstr_fd("Incorrect arguments! ", 2);
-	return ((int)value);
-}
-
-
 /*
 ** j - number of argument
 */
 
-static int		analysis_arg(const char *line, t_body **node,
+static int		find_src(t_body **node, char ***link, long long **arg, int *j)
+{
+	if (*j == 1)
+	{
+		*link = &((*node)->link_1);
+		*arg = &((*node)->arg1);
+	}
+	else if (*j == 2)
+	{
+		*link = &((*node)->link_2);
+		*arg = &((*node)->arg2);
+		*j = 8;
+	}
+	else
+	{
+		*link = &((*node)->link_3);
+		*arg = &((*node)->arg3);
+		*j = 64;
+	}
+	return (0);
+}
+
+static int		analysis_arg(char *line, t_body **node,
 				t_asml asml[16], int j)
 {
-	size_t i;
+	size_t		i;
+	char		**link;
+	long long	*arg;
+	int			res;
 	
-	i = 0;
-	if (j == 2)
-		j = 8;
-	else if (j == 3)
-		j = 64;
+	res = 0;
+	i = find_src(node, &link, &arg, &j);
 	while (line[i] && ft_isspace(line[i]) != 0)
 		i++;
-	if (line[i] == 'r')
-	{
-		if (asml[(*node)->cmd].arg_type & (256 / j))
-			if 
-		
-	}
-	else if ()
-	return (incorrect_arg(i));
+	if (line[i] == 'r' && asml[(*node)->cmd].arg_type & (256 / j))
+		res = accept_registry(line, link, arg, &i);
+	else if (line[i] == DIRECT_CHAR && asml[(*node)->cmd].arg_type & (128 / j))
+		res = accept_direct(line, link, arg, &i);
+	else if (line[i] && asml[(*node)->cmd].arg_type & (64 / j))
+		res = accept_indirect(line, link, arg, &i);
+	if (res == 0)
+		return (incorrect_arg(i));
+	if (res == -1)
+		return (-1);
+	(*node)->type += 2 * (res / j);
+	return (end_of_arg(line, i, j, asml[(*node)->cmd].arg_num));
 }
 
 int				search_args(char *line, t_body **node, size_t *i, t_asml asml[16])
@@ -121,4 +140,3 @@ int				search_args(char *line, t_body **node, size_t *i, t_asml asml[16])
 	*i = *i - free_char_mas(&mas) - 1;
 	return (1);
 }
-

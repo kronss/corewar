@@ -58,8 +58,7 @@ static int	search_data(char **line, t_body **root, t_asml asml[16])
 		else if (res == 0)
 			return (i);
 	}
-	return (-1);
-	//return ((empty(*line + i) == -1) ? -1 : empty(*line + i) + (int)i);
+	return ((empty(*line + i) == -1) ? -1 : empty(*line + i) + (int)i);
 }
 
 t_body		*make_body(int fd, unsigned int line_num, t_asml asml[16])

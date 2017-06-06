@@ -12,6 +12,12 @@
 
 #include "corewar.h"
 
+int		incorrect_arg(size_t value)
+{
+	ft_putstr_fd("Incorrect arguments. ", 2);
+	return ((int)value);
+}
+
 int		count_sym(const char *line, char c)
 {
 	size_t	i;

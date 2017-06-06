@@ -33,7 +33,6 @@ int			main(int argc, char **argv)
 	t_header	head;
 	t_asml		asml[16];
 
-	(void)body;
 	if (argc > 1)
 	{
 		fd = open_file(argv[argc - 1]);
@@ -42,11 +41,12 @@ int			main(int argc, char **argv)
 		body = make_body(fd, head.prog_size, asml);
 		close(fd);
 		
-		t_body *tmp; tmp = body;
+	/*	t_body *tmp; tmp = body;
 		while (tmp) {
-			ft_printf("label = %s, name = %s\n", tmp->label, asml[tmp->cmd].name);
+			ft_printf("label = %s, name = %s, l1 = %s, l2 = %s, l3 = %s, a1 = %lld, a2 = %lld, a3 = %lld\n",
+			tmp->label, asml[tmp->cmd].name,tmp->link_1,tmp->link_2,tmp->link_3,tmp->arg1,tmp->arg2,tmp->arg3);
 			tmp = tmp->next;}
-		
+	*/	
 		body_delete(&body);
 	}
 	else
