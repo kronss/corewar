@@ -93,7 +93,7 @@ SRC_NAME_VM =			main.c \
 
 
 
-all: $(LIB) $(PTF) $(NAME_ASM) $(NAME_VM)
+all: $(LIB) $(PTF) $(NAME_ASM)
 
 $(NAME_ASM): $(OBJ_ASM) $(INC_ASM)
 	@$(CC) $(CFLAGS) $(OBJ_ASM) -L./$(PTF_DIR) -lftprintf -L./$(LIB_DIR) -lft -o $(NAME_ASM)
@@ -104,10 +104,10 @@ $(NAME_VM): $(OBJ_VM) $(INC_VM)
 	@printf "\033[33m\n'$(NAME_VM)' compiling done.\n\033[0m"
 
 $(LIB):
-
+	make -C $(LIB_DIR)
 
 $(PTF):
-
+	make -C $(PTF_DIR)
 
 $(OBJ_DIR_ASM)/%.o: $(SRC_DIR_ASM)/%.c | $(OBJ_DIR_ASM)
 	@printf "\033[42m  \033[0m"

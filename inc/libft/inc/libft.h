@@ -18,7 +18,6 @@
 # include <string.h>
 # define BUFF_SIZE 4096
 
-
 # define STDIN	0
 # define STDOUT	1
 

@@ -12,7 +12,7 @@
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -I./inc/
+CFLAGS = -Wall -Wextra -Werror -I./inc/
 SHELL = /bin/sh
 
 SRC_DIR = src
@@ -102,7 +102,7 @@ OBJ_NAME = ft_memset.o \
 	q_sort.o \
 	ft_atoi_ptv.o \
 	ft_abs.o
-OBJ_DIR = obj
+OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(OBJ_NAME))
 
 #******************************************************************************#

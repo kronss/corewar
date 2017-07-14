@@ -9,7 +9,7 @@
 /*   Updated: 2017/03/04 13:29:02 by ochayche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
- 
+
 #include "libft.h"
 
 static int			ft_iter_power(int nb, int power)
