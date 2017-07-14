@@ -27,6 +27,8 @@ int		count_sym(const char *line, char c)
 	count = 0;
 	while (line && line[i])
 	{
+		if (line[i] == COMMENT_CHAR || line[i] == SECOND_COMMENT_CHAR)
+			break ;
 		if (line[i] == c)
 			count++;
 		i++;

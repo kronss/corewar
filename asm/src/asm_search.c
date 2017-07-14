@@ -21,7 +21,8 @@ int				search_label(char *line, char **label, size_t *i)
 	while (line[j] && ft_isspace(line[j]) != 0)
 		j++;
 	*i = j;
-	while (line[j] && ft_isspace(line[j]) == 0 && line[j] != COMMENT_CHAR)
+	while (line[j] && ft_isspace(line[j]) == 0 && line[j] != COMMENT_CHAR
+		&& line[j] != SECOND_COMMENT_CHAR)
 		j++;
 	if (line[--j] != LABEL_CHAR)
 		return (1);
@@ -65,7 +66,7 @@ int				search_cmd(char *line, short *cmd, size_t *i, t_asml asml[16])
 ** j - number of argument
 */
 
-static int		find_src(t_body **node, char ***link, long long **arg, int *j)
+static int		find_src(t_body **node, char ***link, int **arg, int *j)
 {
 	if (*j == 1)
 	{
@@ -92,10 +93,12 @@ static int		analysis_arg(char *line, t_body **node,
 {
 	size_t		i;
 	char		**link;
-	long long	*arg;
+	int			*arg;
 	int			res;
+	int			num;
 	
 	res = 0;
+	num = 2 * (4 - j);
 	i = find_src(node, &link, &arg, &j);
 	while (line[i] && ft_isspace(line[i]) != 0)
 		i++;
@@ -109,7 +112,7 @@ static int		analysis_arg(char *line, t_body **node,
 		return (incorrect_arg(i));
 	if (res == -1)
 		return (-1);
-	(*node)->type += 2 * (res / j);
+	(*node)->type += res << num;
 	return (end_of_arg(line, i, j, asml[(*node)->cmd].arg_num));
 }
 

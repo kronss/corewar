@@ -6,7 +6,7 @@
 ** Indirect - 10 (10 00 00 00 - 128)
 */
 
-int				accept_registry(char *line, char **link, long long *arg, size_t *i)
+int				accept_registry(char *line, char **link, int *arg, size_t *i)
 {
 	size_t j;
 	
@@ -19,7 +19,7 @@ int				accept_registry(char *line, char **link, long long *arg, size_t *i)
 			return (0);
 		}
 	*arg = ft_atoi(line + *i);
-	if (*arg < 1 || *arg > REG_NUMBER)
+	if (*arg < 1 || *arg > 99)
 	{
 		ft_putstr_fd("Invalid register number. ", 2);
 		return (0);
@@ -28,7 +28,7 @@ int				accept_registry(char *line, char **link, long long *arg, size_t *i)
 	*link = ft_strdup("registry");
 	if (!(*link))
 		return (-1);
-	return (64);
+	return (REG_CODE);
 }
 
 static int		handling_label(char *line, char **link, size_t *i)
@@ -56,7 +56,7 @@ static int		handling_label(char *line, char **link, size_t *i)
 	return (1);
 }
 
-int				accept_direct(char *line, char **link, long long *arg, size_t *i)
+int				accept_direct(char *line, char **link, int *arg, size_t *i)
 {
 	int		res;
 	size_t	j;
@@ -66,7 +66,7 @@ int				accept_direct(char *line, char **link, long long *arg, size_t *i)
 	{
 		if ((res = handling_label(line, link, i)) != 1)
 			return (res);
-		return (192);
+		return (DIR_CODE);
 	}
 	j = *i;
 	if (line[j] == '-' && line[j + 1] && line[j + 1] != '0')
@@ -79,10 +79,10 @@ int				accept_direct(char *line, char **link, long long *arg, size_t *i)
 		}
 	*arg = ft_atoi(line + *i);
 	*i = j;
-	return (192);
+	return (DIR_CODE);
 }
 
-int				accept_indirect(char *line, char **link, long long *arg, size_t *i)
+int				accept_indirect(char *line, char **link, int *arg, size_t *i)
 {
 	int res;
 	size_t	j;
@@ -91,7 +91,7 @@ int				accept_indirect(char *line, char **link, long long *arg, size_t *i)
 	{
 		if ((res = handling_label(line, link, i)) != 1)
 			return (res);
-		return (128);
+		return (IND_CODE);
 	}
 	j = *i;
 	if ((line[j] == '-' || line[j] == '+') && line[j + 1] && line[j + 1] != '0')
@@ -104,7 +104,7 @@ int				accept_indirect(char *line, char **link, long long *arg, size_t *i)
 		}
 	*arg = ft_atoi(line + *i);
 	*i = j;
-	return (128);
+	return (IND_CODE);
 }
 
 int				end_of_arg(char *line, size_t i, int j, short arg_num)
@@ -115,7 +115,7 @@ int				end_of_arg(char *line, size_t i, int j, short arg_num)
 		j = 3;
 	while (line[i])
 	{
-		if (j == arg_num && line[i] == COMMENT_CHAR)
+		if (j == arg_num && (line[i] == COMMENT_CHAR || line[i] == SECOND_COMMENT_CHAR))
 			break ;
 		if (ft_isspace(line[i]) == 0)
 			return (i);

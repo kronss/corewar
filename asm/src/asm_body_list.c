@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void			body_delete(t_body **root)
+int			body_delete(t_body **root)
 {
 	t_body *tmp;
 
@@ -30,12 +30,16 @@ void			body_delete(t_body **root)
 			ft_strdel(&(tmp->link_3));
 		free(tmp);
 	}
+	return (0);
 }
 
 static void		default_values(t_body **node)
 {
 	(*node)->next = NULL;
-	(*node)->size = 0;
+	(*node)->size[0] = 0;
+	(*node)->size[1] = 0;
+	(*node)->size[2] = 0;
+	(*node)->size[3] = 0;
 	(*node)->cmd = -1;
 	(*node)->type = 0;
 	(*node)->label = NULL;

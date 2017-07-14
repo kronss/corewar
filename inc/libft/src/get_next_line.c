@@ -16,7 +16,7 @@
 ** have a nice day!
 */
 
-#include "../inc/libft.h"
+#include "libft.h"
 
 static t_lst				*add_struct(int fd)
 {

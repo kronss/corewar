@@ -16,9 +16,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 4096
 
-# define ABS(x)	((x < 0) ? -(x) : (x))
+
 # define STDIN	0
 # define STDOUT	1
 
@@ -40,6 +40,7 @@ typedef struct		s_lst
 }					t_lst;
 
 int					get_next_line(const int fd, char **line);
+int					ft_abs(int x);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -62,6 +63,7 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 int					ft_atoi_shift_pointer(char **str);
+int					ft_atoi_ptv(char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -111,5 +113,6 @@ int					ft_atohex(char *str);
 int					ft_max(int a, int b);
 long				ft_atol(const char *str);
 void				q_sort(int *s_arr, int first, int last);
+char				*ft_itoa_base(int value, int base);
 
 #endif

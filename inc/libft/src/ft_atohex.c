@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
  
-#include "../inc/libft.h"
+#include "libft.h"
 
 static int			ft_iter_power(int nb, int power)
 {

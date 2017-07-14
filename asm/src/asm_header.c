@@ -22,7 +22,7 @@ static void			empty_line(char **line, unsigned int line_num,
 	{
 		if (ft_isspace(str[i]) == 0)
 		{
-			if (str[i] == COMMENT_CHAR)
+			if (str[i] == COMMENT_CHAR || str[i] == SECOND_COMMENT_CHAR)
 				return ;
 			syntax_error(line_num, (unsigned int)i, line);
 		}
