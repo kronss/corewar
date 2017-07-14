@@ -38,6 +38,11 @@ static int		handling_label(char *line, char **link, size_t *i)
 	
 	*i += 1;
 	j = *i;
+	if (line[j] == '\0' || ft_isspace(line[j]) != 0)
+	{
+			ft_putstr_fd("Invalid characters in label. ", 2);
+			return (0);
+	}
 	while (line[j] && ft_isspace(line[j]) == 0)
 		if (!ft_strchr(LABEL_CHARS, line[j]))
 		{

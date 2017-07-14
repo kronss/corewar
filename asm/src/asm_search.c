@@ -26,8 +26,9 @@ int				search_label(char *line, char **label, size_t *i)
 		j++;
 	if (line[--j] != LABEL_CHAR)
 		return (1);
+	if (*i == j)
+		return (0);
 	size = j - *i;
-
 	while (*i < j)
 		if (!ft_strchr(LABEL_CHARS, line[*i]))
 			return (0);
