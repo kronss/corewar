@@ -6,11 +6,11 @@
 /*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 14:07:25 by atrush            #+#    #+#             */
-/*   Updated: 2017/06/02 14:07:27 by atrush           ###   ########.fr       */
+/*   Updated: 2017/07/20 14:35:48 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 int				search_label(char *line, char **label, size_t *i)
 {
@@ -22,7 +22,7 @@ int				search_label(char *line, char **label, size_t *i)
 		j++;
 	*i = j;
 	while (line[j] && ft_isspace(line[j]) == 0 && line[j] != COMMENT_CHAR
-		&& line[j] != SECOND_COMMENT_CHAR)
+			&& line[j] != SECOND_COMMENT_CHAR)
 		j++;
 	if (line[--j] != LABEL_CHAR)
 		return (1);
@@ -44,13 +44,13 @@ int				search_label(char *line, char **label, size_t *i)
 int				search_cmd(char *line, short *cmd, size_t *i, t_asml asml[16])
 {
 	short k;
-	
+
 	while (line[*i] && ft_isspace(line[*i]) != 0)
 		*i += 1;
 	k = 16;
 	while (--k > -1)
 		if (!ft_strncmp(line + *i, asml[k].name, ft_strlen(asml[k].name)))
-			break;
+			break ;
 	*cmd = k;
 	if (*cmd == -1)
 		return (0);
@@ -90,14 +90,14 @@ static int		find_src(t_body **node, char ***link, int **arg, int *j)
 }
 
 static int		analysis_arg(char *line, t_body **node,
-				t_asml asml[16], int j)
+		t_asml asml[16], int j)
 {
 	size_t		i;
 	char		**link;
 	int			*arg;
 	int			res;
 	int			num;
-	
+
 	res = 0;
 	num = 2 * (4 - j);
 	i = find_src(node, &link, &arg, &j);
@@ -117,20 +117,22 @@ static int		analysis_arg(char *line, t_body **node,
 	return (end_of_arg(line, i, j, asml[(*node)->cmd].arg_num));
 }
 
-int				search_args(char *line, t_body **node, size_t *i, t_asml asml[16])
+int				search_args(char *line, t_body **node,
+			size_t *i, t_asml asml[16])
 {
 	char	**mas;
 	int		j;
 	int		res;
-	
+
 	mas = ft_strsplit(line + *i, SEPARATOR_CHAR);
 	j = 0;
 	while (mas && mas[j])
 		j++;
-	if (j != asml[(*node)->cmd].arg_num ||
-		count_sym(line + *i, SEPARATOR_CHAR) + 1 != asml[(*node)->cmd].arg_num)
-		return (inv_arg(asml[(*node)->cmd].name, asml[(*node)->cmd].arg_num, &mas));
-	j = -1;
+	if (j != asml[(*node)->cmd].arg_num || count_sym(line + *i, SEPARATOR_CHAR)
+		+ 1 != asml[(*node)->cmd].arg_num)
+		return (inv_arg(asml[(*node)->cmd].name,
+			asml[(*node)->cmd].arg_num, &mas));
+		j = -1;
 	while (++j < asml[(*node)->cmd].arg_num)
 	{
 		if ((res = analysis_arg(mas[j], node, asml, j + 1)) == -1)

@@ -1,10 +1,22 @@
-#include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   disasm_file.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/20 14:39:05 by atrush            #+#    #+#             */
+/*   Updated: 2017/07/20 14:39:13 by atrush           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "asm.h"
 
 static int	open_write_file(char *filename)
 {
 	int		fd;
 	char	*s_file;
-	
+
 	s_file = filename;
 	if ((s_file = ft_strnew(ft_strlen(filename) + 5)) == NULL)
 	{
@@ -15,7 +27,7 @@ static int	open_write_file(char *filename)
 	ft_strncat(s_file, filename, ft_strlen(filename) - 3);
 	ft_strcat(s_file, "s");
 	fd = open(s_file, O_RDWR | O_CREAT | O_TRUNC,
-		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (errno != 0 || fd < 3)
 	{
 		ft_strdel(&s_file);
@@ -30,7 +42,7 @@ static int	open_write_file(char *filename)
 static int	without_opcode(int cor_fd, int s_fd, size_t size)
 {
 	int value;
-	
+
 	if (!read_int(cor_fd, &value, size))
 		return (0);
 	ft_putstr_fd(" ", s_fd);
@@ -43,7 +55,7 @@ static int	decompilation(int cor_fd, int s_fd, t_asml asml[16])
 {
 	int size;
 	int cmd;
-	
+
 	if ((size = read_header(cor_fd, s_fd)) <= 0)
 		return (0);
 	while (size > 0)
@@ -72,26 +84,27 @@ int			disasm(t_asml asml[16], int argc, char **argv)
 {
 	int	cor_fd;
 	int s_fd;
-	
+
 	if (argc < 3 || ft_strcmp(argv[argc - 2], "-d") != 0)
 		return (0);
 	if (!argv[argc - 1] || ft_strlen(argv[argc - 1]) < 4 ||
-	ft_strcmp(argv[argc - 1] + ft_strlen(argv[argc - 1]) - 4, ".cor") != 0)
+		ft_strcmp(argv[argc - 1] + ft_strlen(argv[argc - 1]) - 4, ".cor") != 0)
 	{
-		ft_printf("%s -d : The file must have \".cor\" extension!%s\n", RED, DEFAULT);
-		exit (-10);
+		ft_printf("%s -d : The file must have \".cor\" extension!%s\n",
+			RED, DEFAULT);
+		exit(-10);
 	}
 	cor_fd = open_read_file(argv[argc - 1]);
 	s_fd = open_write_file(argv[argc - 1]);
 	if (!decompilation(cor_fd, s_fd, asml))
 	{
-		close (cor_fd);
-		close (s_fd);
+		close(cor_fd);
+		close(s_fd);
 		ft_printf("%sDecompilation error!%s\n", RED, DEFAULT);
-		exit (-11);
+		exit(-11);
 	}
-	close (cor_fd);
-	close (s_fd);
+	close(cor_fd);
+	close(s_fd);
 	ft_printf("%sDecompilation was successful.%s\n", GREEN, DEFAULT);
 	return (1);
 }

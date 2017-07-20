@@ -6,11 +6,11 @@
 /*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 14:29:06 by atrush            #+#    #+#             */
-/*   Updated: 2017/05/31 14:29:15 by atrush           ###   ########.fr       */
+/*   Updated: 2017/07/20 14:34:14 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 int				empty(char *line)
 {
@@ -37,7 +37,7 @@ static void		handling_line(char **line)
 {
 	size_t	i;
 	char	flag;
-	
+
 	if (!(*line))
 		return ;
 	i = 0;
@@ -46,7 +46,8 @@ static void		handling_line(char **line)
 	{
 		if (flag && (*line)[i] == SEPARATOR_CHAR)
 			(*line)[i] = COMMENT_CHAR;
-		else if ((*line)[i] == COMMENT_CHAR || (*line)[i] == SECOND_COMMENT_CHAR)
+		else if ((*line)[i] == COMMENT_CHAR ||
+			(*line)[i] == SECOND_COMMENT_CHAR)
 			flag = 1;
 		i++;
 	}
@@ -84,7 +85,7 @@ static int		search_data(char **line, t_body **root, t_asml asml[16])
 static void		new_line(int fd, char **line, t_body **root)
 {
 	char	sym;
-	
+
 	ft_strdel(line);
 	lseek(fd, -1, SEEK_CUR);
 	if (read(fd, &sym, 1) != 1)

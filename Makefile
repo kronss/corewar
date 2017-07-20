@@ -26,10 +26,10 @@ PTF =	libftprintf.a
 ################################################################################
 #	ASM
 ################################################################################
-NAME_ASM = skype
+NAME_ASM = asmm
 
 #********* -INC
-INC_NAME_ASM =	corewar.h
+INC_NAME_ASM =	asm.h
 INC_DIR_ASM =	inc
 INC_ASM = $(addprefix $(INC_DIR_ASM)/, $(INC_NAME_ASM))
 

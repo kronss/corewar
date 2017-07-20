@@ -1,4 +1,16 @@
-#include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_args.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/20 14:39:53 by atrush            #+#    #+#             */
+/*   Updated: 2017/07/20 14:39:58 by atrush           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "asm.h"
 
 /*
 ** Registry - 01 (01 00 00 00 - 64)
@@ -9,7 +21,7 @@
 int				accept_registry(char *line, char **link, int *arg, size_t *i)
 {
 	size_t j;
-	
+
 	*i += 1;
 	j = *i;
 	while (line[j] && ft_isspace(line[j]) == 0)
@@ -35,13 +47,13 @@ static int		handling_label(char *line, char **link, size_t *i)
 {
 	size_t j;
 	size_t size;
-	
+
 	*i += 1;
 	j = *i;
 	if (line[j] == '\0' || ft_isspace(line[j]) != 0)
 	{
-			ft_putstr_fd("Invalid characters in label. ", 2);
-			return (0);
+		ft_putstr_fd("Invalid characters in label. ", 2);
+		return (0);
 	}
 	while (line[j] && ft_isspace(line[j]) == 0)
 		if (!ft_strchr(LABEL_CHARS, line[j]))
@@ -53,8 +65,7 @@ static int		handling_label(char *line, char **link, size_t *i)
 		else
 			j++;
 	size = j - *i;
-	*link = ft_strnew(size);
-	if (!(*link))
+	if (!(*link = ft_strnew(size)))
 		return (-1);
 	*link = ft_strncpy(*link, line + *i, size);
 	*i = j;
@@ -89,7 +100,7 @@ int				accept_direct(char *line, char **link, int *arg, size_t *i)
 
 int				accept_indirect(char *line, char **link, int *arg, size_t *i)
 {
-	int res;
+	int		res;
 	size_t	j;
 
 	if (line[*i] == LABEL_CHAR)
@@ -120,7 +131,8 @@ int				end_of_arg(char *line, size_t i, int j, short arg_num)
 		j = 3;
 	while (line[i])
 	{
-		if (j == arg_num && (line[i] == COMMENT_CHAR || line[i] == SECOND_COMMENT_CHAR))
+		if (j == arg_num && (line[i] == COMMENT_CHAR ||
+			line[i] == SECOND_COMMENT_CHAR))
 			break ;
 		if (ft_isspace(line[i]) == 0)
 			return (i);

@@ -1,9 +1,21 @@
-#include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_size.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/20 14:43:39 by atrush            #+#    #+#             */
+/*   Updated: 2017/07/20 14:43:42 by atrush           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "asm.h"
 
 static unsigned int	count_size(t_body *list)
 {
 	unsigned int	size;
-	
+
 	size = 0;
 	while (list)
 	{
@@ -14,12 +26,12 @@ static unsigned int	count_size(t_body *list)
 	return (size);
 }
 
-static int			count_distance_to_label(unsigned int start, unsigned int end,
-					t_body *tmp)
+static int			count_distance_to_label(unsigned int start,
+	unsigned int end, t_body *tmp)
 {
 	unsigned int	count;
 	int				distance;
-	
+
 	count = 0;
 	distance = 0;
 	while (tmp && count < end)
@@ -32,11 +44,12 @@ static int			count_distance_to_label(unsigned int start, unsigned int end,
 	return (distance);
 }
 
-static int			search_label_in_list(char **label, t_body **root, unsigned int cmd_line)
+static int			search_label_in_list(char **label,
+	t_body **root, unsigned int cmd_line)
 {
 	t_body			*tmp;
 	unsigned int	label_line;
-	
+
 	label_line = 0;
 	tmp = *root;
 	while (tmp)
@@ -52,7 +65,7 @@ static int			search_label_in_list(char **label, t_body **root, unsigned int cmd_
 		ft_putstr_fd(*label, 2);
 		ft_putstr_fd("\" does not exist.\n", 2);
 		body_delete(root);
-		exit (-7);
+		exit(-7);
 	}
 	ft_strdel(label);
 	if (label_line >= cmd_line)
@@ -64,7 +77,7 @@ static void			label_to_number(t_body **root)
 {
 	t_body			*tmp;
 	unsigned int	count;
-	
+
 	count = 0;
 	tmp = *root;
 	while (tmp)
@@ -85,28 +98,28 @@ static void			label_to_number(t_body **root)
 
 unsigned int		resize(t_body **root, t_asml asml[16])
 {
-	t_body  *tmp;
-	short   k;
+	t_body		*tm;
+	short		k;
 
-	tmp = *root;
-	while (tmp)
+	tm = *root;
+	while (tm)
 	{
-		if (tmp->cmd != -1)
+		if (tm->cmd != -1)
 		{
-			tmp->size[0] = 1;
-			if (asml[tmp->cmd].cod_oct == 1)
-				tmp->size[0] += 1;
+			tm->size[0] = 1;
+			if (asml[tm->cmd].cod_oct == 1)
+				tm->size[0] += 1;
 			k = 4;
 			while (--k > 0)
-				if (((tmp->type >> (2 *k)) & 3) == REG_CODE)
-					tmp->size[4 - k] = REG_SIZE;
-				else if (((tmp->type >> (2 *k)) & 3) == IND_CODE)
-					tmp->size[4 - k] = IND_SIZE;
-				else if (((tmp->type >> (2 *k)) & 3) == DIR_CODE)
-					tmp->size[4 - k] = asml[tmp->cmd].label_size;
-			tmp->size[0] = tmp->size[0] + tmp->size[1] + tmp->size[2] + tmp->size[3];
+				if (((tm->type >> (2 * k)) & 3) == REG_CODE)
+					tm->size[4 - k] = REG_SIZE;
+				else if (((tm->type >> (2 * k)) & 3) == IND_CODE)
+					tm->size[4 - k] = IND_SIZE;
+				else if (((tm->type >> (2 * k)) & 3) == DIR_CODE)
+					tm->size[4 - k] = asml[tm->cmd].label_size;
+			tm->size[0] = tm->size[0] + tm->size[1] + tm->size[2] + tm->size[3];
 		}
-		tmp = tmp->next;
+		tm = tm->next;
 	}
 	label_to_number(root);
 	return (count_size(*root));

@@ -6,11 +6,11 @@
 /*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 16:02:32 by atrush            #+#    #+#             */
-/*   Updated: 2017/05/26 16:02:34 by atrush           ###   ########.fr       */
+/*   Updated: 2017/07/20 14:32:52 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 int		incorrect_arg(size_t value)
 {
@@ -22,7 +22,7 @@ int		count_sym(const char *line, char c)
 {
 	size_t	i;
 	int		count;
-	
+
 	i = 0;
 	count = 0;
 	while (line && line[i])
@@ -39,7 +39,7 @@ int		count_sym(const char *line, char c)
 int		free_char_mas(char ***mas)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (!mas || !(*mas))
 		return (0);
@@ -57,7 +57,7 @@ int		free_char_mas(char ***mas)
 int		ft_isspace(int c)
 {
 	if (c == (int)' ' || c == (int)'\f' || c == (int)'\n' || c == (int)'\r' ||
-		c == (int)'\t' || c == (int)'\v' || c == (int)'\0')
+			c == (int)'\t' || c == (int)'\v' || c == (int)'\0')
 		return (1);
 	return (0);
 }

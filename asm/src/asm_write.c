@@ -1,10 +1,22 @@
-#include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_write.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/20 14:37:56 by atrush            #+#    #+#             */
+/*   Updated: 2017/07/20 15:02:47 by atrush           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int	write_hex(int fd, int value, size_t size)
+#include "asm.h"
+
+static int		write_hex(int fd, int value, size_t size)
 {
-	unsigned char   *str;
-	size_t          i;
-	
+	unsigned char	*str;
+	size_t			i;
+
 	i = 0;
 	str = NULL;
 	if (!(str = (unsigned char *)malloc(sizeof(unsigned char) * (size + 1))))
@@ -34,7 +46,7 @@ static void		malloc_error(int fd, t_body **root)
 	body_delete(root);
 	close(fd);
 	perror("");
-	exit (-8);
+	exit(-8);
 }
 
 static int		write_header(int fd, t_header head)
@@ -52,10 +64,11 @@ static int		write_header(int fd, t_header head)
 	return (1);
 }
 
-void			write_to_file(int fd, t_header head, t_body **root, t_asml asml[16])
+void			write_to_file(int fd, t_header head,
+	t_body **root, t_asml asml[16])
 {
 	t_body	*tmp;
-	
+
 	if (!(write_header(fd, head)))
 		malloc_error(fd, root);
 	tmp = *root;
@@ -67,11 +80,14 @@ void			write_to_file(int fd, t_header head, t_body **root, t_asml asml[16])
 				malloc_error(fd, root);
 			if (asml[tmp->cmd].cod_oct == 1 && !(write_hex(fd, tmp->type, 1)))
 				malloc_error(fd, root);
-			if (asml[tmp->cmd].arg_num > 0 && !(write_hex(fd, tmp->arg1, tmp->size[1])))
+			if (asml[tmp->cmd].arg_num > 0 &&
+				!(write_hex(fd, tmp->arg1, tmp->size[1])))
 				malloc_error(fd, root);
-			if (asml[tmp->cmd].arg_num > 1 && !(write_hex(fd, tmp->arg2, tmp->size[2])))
+			if (asml[tmp->cmd].arg_num > 1 &&
+				!(write_hex(fd, tmp->arg2, tmp->size[2])))
 				malloc_error(fd, root);
-			if (asml[tmp->cmd].arg_num > 2 && !(write_hex(fd, tmp->arg3, tmp->size[3])))
+			if (asml[tmp->cmd].arg_num > 2 &&
+				!(write_hex(fd, tmp->arg3, tmp->size[3])))
 				malloc_error(fd, root);
 		}
 		tmp = tmp->next;

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   both_asml.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/20 14:38:28 by atrush            #+#    #+#             */
+/*   Updated: 2017/07/20 14:38:38 by atrush           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
-static void			first_part(t_asml *asml, char *name, short arg_num, short cycles)
+static void			first_part(t_asml *asml, char *name,
+	short arg_num, short cycles)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (name[i])
 	{
@@ -14,13 +26,14 @@ static void			first_part(t_asml *asml, char *name, short arg_num, short cycles)
 	while (i < 6)
 	{
 		asml->name[i] = '\0';
-		i++;	
+		i++;
 	}
 	asml->arg_num = arg_num;
 	asml->cycles = cycles;
 }
 
-static void			second_part(t_asml *asml, short label_size, short carry, short cod_oct)
+static void			second_part(t_asml *asml, short label_size,
+	short carry, short cod_oct)
 {
 	asml->label_size = label_size;
 	asml->carry = carry;
@@ -55,8 +68,8 @@ static void			asml_other(t_asml asml[16])
 	asml[15].arg_type = 256;
 }
 
-
-/* arg_type
+/*
+** arg_type
 **		 1 arg				 2 arg				 3 arg
 ** T_REG T_DIR T_IND | T_REG T_DIR T_IND | T_REG T_DIR T_IND
 ** ---------------------------------------------------------
@@ -77,7 +90,7 @@ static void			asml_other(t_asml asml[16])
 **	100	000	000 = 256
 */
 
-void			asml_default(t_asml asml[16])
+void				asml_default(t_asml asml[16])
 {
 	first_part(&asml[0], "live", 1, 10);
 	second_part(&asml[0], 4, 0, 0);

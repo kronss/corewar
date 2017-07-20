@@ -1,11 +1,23 @@
-#include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   disasm_args.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/20 14:38:51 by atrush            #+#    #+#             */
+/*   Updated: 2017/07/20 14:38:57 by atrush           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "asm.h"
 
 int			g_opcode;
 
-static int  registry(int cor_fd, int s_fd)
+static int		registry(int cor_fd, int s_fd)
 {
 	int value;
-	
+
 	if (!read_int(cor_fd, &value, REG_SIZE))
 		return (0);
 	if (value < 1 || value > 99)
@@ -15,10 +27,10 @@ static int  registry(int cor_fd, int s_fd)
 	return (REG_SIZE);
 }
 
-static int  direct(int cor_fd, int s_fd, size_t size)
+static int		direct(int cor_fd, int s_fd, size_t size)
 {
 	int value;
-	
+
 	if (!read_int(cor_fd, &value, size))
 		return (0);
 	ft_putstr_fd(" ", s_fd);
@@ -27,10 +39,10 @@ static int  direct(int cor_fd, int s_fd, size_t size)
 	return (size);
 }
 
-static int  indirect(int cor_fd, int s_fd)
+static int		indirect(int cor_fd, int s_fd)
 {
 	int value;
-	
+
 	if (!read_int(cor_fd, &value, IND_SIZE))
 		return (0);
 	ft_putstr_fd(" ", s_fd);
@@ -38,10 +50,10 @@ static int  indirect(int cor_fd, int s_fd)
 	return (IND_SIZE);
 }
 
-static int	more_than_one(int cor_fd, int s_fd, int cmd, t_asml asml[16])
+static int		more_than_one(int cor_fd, int s_fd, int cmd, t_asml asml[16])
 {
 	int res;
-	
+
 	res = 0;
 	if (((g_opcode >> 4) & 3) == REG_CODE && (asml[cmd].arg_type & 32))
 		res = registry(cor_fd, s_fd);
@@ -50,7 +62,7 @@ static int	more_than_one(int cor_fd, int s_fd, int cmd, t_asml asml[16])
 	else if (((g_opcode >> 4) & 3) == IND_CODE && (asml[cmd].arg_type & 8))
 		res = indirect(cor_fd, s_fd);
 	if (res == 0 || (asml[cmd].arg_num == 2 &&
-		(((g_opcode >> 2) & 3) || (g_opcode & 3))))
+				(((g_opcode >> 2) & 3) || (g_opcode & 3))))
 		return (0);
 	if (asml[cmd].arg_num == 2)
 		return (res);
@@ -63,15 +75,13 @@ static int	more_than_one(int cor_fd, int s_fd, int cmd, t_asml asml[16])
 		cmd = indirect(cor_fd, s_fd);
 	else
 		cmd = 0;
-	if (cmd == 0 || (g_opcode & 3))
-		return (0);
-	return (res + cmd);
+	return ((cmd == 0 || (g_opcode & 3)) ? 0 : (res + cmd));
 }
 
-int     	with_opcode(int cor_fd, int s_fd, int cmd, t_asml asml[16])
+int				with_opcode(int cor_fd, int s_fd, int cmd, t_asml asml[16])
 {
 	int res;
-	
+
 	if (!read_int(cor_fd, &g_opcode, 1))
 		return (0);
 	res = 0;
@@ -81,8 +91,8 @@ int     	with_opcode(int cor_fd, int s_fd, int cmd, t_asml asml[16])
 		res = direct(cor_fd, s_fd, asml[cmd].label_size);
 	else if (((g_opcode >> 6) & 3) == IND_CODE && (asml[cmd].arg_type & 64))
 		res = indirect(cor_fd, s_fd);
-	if (res == 0 || (asml[cmd].arg_num == 1 &&
-		(((g_opcode >> 4) & 3) || ((g_opcode >> 2) & 3) || (g_opcode & 3))))
+	if (res == 0 || (asml[cmd].arg_num == 1 && (((g_opcode >> 4) & 3) ||
+		((g_opcode >> 2) & 3) || (g_opcode & 3))))
 		return (0);
 	if (asml[cmd].arg_num == 1)
 		return (res);

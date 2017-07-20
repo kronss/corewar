@@ -6,13 +6,13 @@
 /*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 15:14:28 by atrush            #+#    #+#             */
-/*   Updated: 2017/05/25 15:14:30 by atrush           ###   ########.fr       */
+/*   Updated: 2017/07/20 14:35:37 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
-int	open_read_file(const char *filename)
+int			open_read_file(const char *filename)
 {
 	int fd;
 
@@ -20,7 +20,7 @@ int	open_read_file(const char *filename)
 	if (errno != 0 || fd < 3)
 	{
 		perror(filename);
-		exit (-1);
+		exit(-1);
 	}
 	return (fd);
 }
@@ -29,7 +29,7 @@ static int	open_write_file(char *filename, char *cor_file)
 {
 	int		fd;
 	size_t	size;
-	
+
 	size = 0;
 	while ((cor_file = ft_strchr(cor_file, '.')))
 		size = ft_strlen(cor_file++);
@@ -42,7 +42,7 @@ static int	open_write_file(char *filename, char *cor_file)
 	ft_strncpy(cor_file, filename, size);
 	ft_strcat(cor_file, ".cor");
 	fd = open(cor_file, O_RDWR | O_CREAT | O_TRUNC,
-		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (errno != 0 || fd < 3)
 	{
 		ft_strdel(&cor_file);
@@ -78,17 +78,6 @@ int			main(int argc, char **argv)
 		body_delete(&body);
 	}
 	else
-		ft_printf("Usage: %s%s", argv[0], USAGE);
+		ft_printf("Usage: %s%s%s%s", argv[0], US1, US2, US3);
 	return (0);
 }
-
-		/*ft_printf("name = |%s|\ncom = |%s|\n",head.prog_name, head.comment);
-		t_body *tmp; 
-		tmp = body;
-		while (tmp) 
-		{
-			ft_printf("name = %s, size = %d, l1 = %s, l2 = %s, l3 = %s, a1 = %d, a2 = %d, a3 = %d\n",
-			asml[tmp->cmd].name,tmp->size[0],tmp->link_1,tmp->link_2,tmp->link_3,tmp->arg1,tmp->arg2,tmp->arg3);
-			tmp = tmp->next;
-		}
-		*/

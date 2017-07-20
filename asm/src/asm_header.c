@@ -6,14 +6,14 @@
 /*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/26 15:41:36 by atrush            #+#    #+#             */
-/*   Updated: 2017/05/26 15:41:39 by atrush           ###   ########.fr       */
+/*   Updated: 2017/07/20 14:35:05 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 static void			empty_line(char **line, unsigned int line_num,
-					int n, size_t i)
+		int n, size_t i)
 {
 	char	*str;
 
@@ -31,7 +31,7 @@ static void			empty_line(char **line, unsigned int line_num,
 }
 
 static void			check_length(char **line, t_header *head,
-					int type, size_t i)
+		int type, size_t i)
 {
 	char	*str;
 	size_t	size;
@@ -59,7 +59,7 @@ static void			check_length(char **line, t_header *head,
 }
 
 static void			write_to_s_header(char **line, t_header *head,
-					int type, int fd)
+		int type, int fd)
 {
 	char	*str;
 	size_t	size;
@@ -86,21 +86,21 @@ static void			write_to_s_header(char **line, t_header *head,
 }
 
 static short int	copy_cmd_text(char **line, t_header *head,
-					int type, int fd)
+		int type, int fd)
 {
 	size_t	start;
 	char	*str;
 
 	str = *line;
 	start = ft_strlen(str) - ft_strlen(ft_strstr(str,
-		(type == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING)));
+				(type == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING)));
 	empty_line(line, (*head).prog_size, start, 0);
 	str += start + ft_strlen(type == 1 ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 	while (ft_isspace(*str))
 		str++;
 	if (*str != '\"')
 		syntax_error((*head).prog_size,
-			ft_strlen(*line) - ft_strlen(str), line);
+				ft_strlen(*line) - ft_strlen(str), line);
 	write_to_s_header(line, head, type, fd);
 	return (type);
 }

@@ -6,13 +6,13 @@
 /*   By: atrush <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 14:46:21 by atrush            #+#    #+#             */
-/*   Updated: 2017/05/31 14:46:24 by atrush           ###   ########.fr       */
+/*   Updated: 2017/07/20 14:34:39 by atrush           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
-int			body_delete(t_body **root)
+int				body_delete(t_body **root)
 {
 	t_body *tmp;
 
