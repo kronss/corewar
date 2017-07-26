@@ -1,9 +1,9 @@
 *.o
+*.a
 .DS_Store
 *.exe
 *.out
 .nfs.*
-lem-in.dSYM
+*.dSYM
 ._*
 *.cor
-asm_test

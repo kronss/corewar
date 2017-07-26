@@ -109,6 +109,7 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(OBJ_NAME))
 .PHONY: all clean fclean re
 
 all: $(NAME)
+	@2>/dev/null || true
 
 $(NAME): $(OBJ) $(INC)
 	ar rc $(NAME) $? $(INC)

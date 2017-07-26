@@ -12,7 +12,7 @@
 
 GCC = gcc
 
-F = 
+F = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
@@ -42,6 +42,7 @@ OBJECT = ./ft_printf.o \
 .PHONY: all clean fclean re
 
 all: $(NAME)
+	@2>/dev/null || true
 
 $(NAME): $(OBJECT)
 		ar rc $(NAME) $(OBJECT)
